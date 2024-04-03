@@ -37,10 +37,10 @@ const start = async () => {
 
 
     // aqui criamos definitivamente um schema para ser usado 
-    server.auth.scheme("teste",teste)
+    server.auth.scheme("teste", teste)
 
-    server.auth.strategy("custom","teste",{
-        validate:(request,isValid)=>{
+    server.auth.strategy("custom", "teste", {
+        validate: (request, isValid) => {
             // logica de codigo;
             return { isValid }
         }
@@ -49,16 +49,26 @@ const start = async () => {
     // aqui criamos um a estrategia de autenticação para o JWT. lib -> hapi-auth-jwt2
     await server.register(jwtAuth);
 
-    server.auth.strategy("jwt","jwt",{
-        key:"ydbex62gb7dsbGDBD7g3edshsyd66gdyaysbddysgvy6666234djshs673$@dd#@!%@#$@usvbwdh",
-        verifyOptions:{
-            algorithms:["HS256"] // padrão
+    server.auth.strategy("jwt", "jwt", {
+        key: "ydbex62gb7dsbGDBD7g3edshsyd66gdyaysbddysgvy6666234djshs673$@dd#@!%@#$@usvbwdh",
+        verifyOptions: {
+            algorithms: ["HS256"] // padrão
         },
-        validate(decoded,h){
-            return { isValid:true }
+        validate(decoded, h) {
+            return { isValid: true }
         }
     })
-    
+
+    // crinado auth para o google
+    await server.register(bell)
+    server.auth.strategy("google", "bell", {
+        provider: 'google',
+        password: 'tterg77idyfysigfergtherhtgdysdfsfysiuergwegrwer423423EWGE8D8FSDN3ERWwe2',
+        clientId: process.env.CLIENT_ID,
+        clientSecret: process.env.CLIENT_SECRET,
+        isSecure: false
+    })
+
     server.route(routes);
 
     await server.start();
