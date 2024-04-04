@@ -4,7 +4,7 @@ import Hapi from '@hapi/hapi';
 import Boom from "@hapi/boom"
 import bell from "@hapi/bell"
 import jwtAuth from "hapi-auth-jwt2"
-import { routes } from './routes.js';
+import { routes } from '../routes.js';
 import dotenv from "dotenv";
 
 dotenv.config();

@@ -3,6 +3,7 @@ export const routes = [
         path: "/user",
         method: "GET",
         handler: (request, h) => {
+            console.log("depois");
             if(request.auth.isAuthenticated){
                 return {
                     name: "luiz",
