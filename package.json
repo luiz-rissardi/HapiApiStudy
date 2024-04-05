@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon ./server/index.js",
-    "study": "nodemon ./estudos/rateLimit/index.js",
+    "study": "nodemon ./estudos/staticServer/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -17,8 +17,10 @@
     "@hapi/bell": "^13.0.2",
     "@hapi/hapi": "^21.3.7",
     "@hapi/jwt": "^3.2.0",
+    "@hapi/vision": "^7.0.3",
     "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
+    "ejs": "^3.1.9",
     "hapi-auth-jwt2": "^10.5.1",
     "hapi-rate-limit": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
