@@ -21,7 +21,7 @@ export class MySqlDataBase extends BaseICrud {
     async findAll() {
         try {
             const connection = await this.#connect();
-            const users = await connection.query("SELECT * FROM users");
+            const users = await connection.query("SELECT * FROM usuario");
             connection.release();
             return users;
         } catch (error) {
@@ -32,7 +32,7 @@ export class MySqlDataBase extends BaseICrud {
     async insertOne(user) {
         try {
             const connection = await this.#connect();
-            const result = await connection.query(`INSERT INTO users VALUES (?,?,?,?)`, [user.userName, user.idade, user.lastName, user.id])
+            const result = await connection.query(`INSERT INTO usuario VALUES (?,?,?,?)`, [user.userName, user.idade, user.lastName, user.id])
             connection.release;
             return result;
         } catch (error) {
@@ -43,7 +43,7 @@ export class MySqlDataBase extends BaseICrud {
     async updateOne(userId, user) {
         try {
             const connection = await this.#connect();
-            const result = await connection.query("UPDATE user SET userName=?,lastName=?,idade=? WHERE id = ? ",[user.userName,user.lastName,user.idade,userId]);
+            const result = await connection.query("UPDATE usuario SET userName=?,lastName=?,idade=? WHERE id = ? ",[user.userName,user.lastName,user.idade,userId]);
             connection.release();
             return result;
         } catch (error) {
