@@ -1,24 +1,24 @@
 import Hapi from "@hapi/hapi";
+import dotenv from "dotenv"
 
-async function init(){
+import { UserRoutes } from "./routes/user.routes.js";
+import { Factory } from "./factory/factory.js";
+
+async function init() {
+
+    dotenv.config();
     const server = Hapi.server({
-        port:3000,
-        host:"localhost"
+        port: 3000,
+        host: "localhost"
     })
 
-    server.route({
-        path:"/",
-        method:"GET",
-        handler: function(request,h){
-            return {
-                nome:"luiz",
-                idade:18
-            }
-        }
-    })
-
+    const userController = await Factory.getInstance();
+    const userRoutes = new UserRoutes(userController);
+    server.route([
+        ...userRoutes.mapRoutes(userRoutes.getMethods())
+    ])
     await server.start();
     console.log("server is running at 3000");
 }
 
-init()
+init();
