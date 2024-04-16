@@ -5,7 +5,7 @@ import { UserController } from "../controller/controller.js";
 
 export class Factory {
     static async getInstance() {
-        const isProd = process.env.PROD;
+        const isProd = process.env.PROD == "true" ? true : false;
         let database;
         if (isProd) {
             database = new MySqlDataBase(process.env.MYSQL_CONNECTION_STRING)

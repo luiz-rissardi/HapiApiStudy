@@ -32,7 +32,7 @@ export class MySqlDataBase extends BaseICrud {
     async insertOne(user) {
         try {
             const connection = await this.#connect();
-            const result = await connection.query(`INSERT INTO usuario VALUES (?,?,?,?)`, [user.userName, user.idade, user.lastName, user.id])
+            const result = await connection.query(`INSERT INTO usuario VALUES (?,?,?,?)`, [user.id, user.userName, user.lastName, user.idade])
             connection.release;
             return result;
         } catch (error) {
@@ -43,7 +43,7 @@ export class MySqlDataBase extends BaseICrud {
     async updateOne(userId, user) {
         try {
             const connection = await this.#connect();
-            const result = await connection.query("UPDATE usuario SET userName=?,lastName=?,idade=? WHERE id = ? ",[user.userName,user.lastName,user.idade,userId]);
+            const result = await connection.query("UPDATE usuario SET userName=?,lastName=?,idade=? WHERE id = ? ", [user.userName, user.lastName, user.idade, userId]);
             connection.release();
             return result;
         } catch (error) {

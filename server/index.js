@@ -4,7 +4,7 @@ import dotenv from "dotenv"
 import { UserRoutes } from "./routes/user.routes.js";
 import { Factory } from "./factory/factory.js";
 
-async function init() {
+export async function init() {
 
     dotenv.config();
     const server = Hapi.server({
@@ -19,6 +19,6 @@ async function init() {
     ])
     await server.start();
     console.log("server is running at 3000");
-}
 
-init();
+    return server
+}
