@@ -56,6 +56,4 @@ describe("suite de testes da api de usuários", function () {
         assert.deepEqual(dados.code,201);
         assert.deepEqual(dados.result,"usuario atualizado com sucesso")
     })
-
-
 })

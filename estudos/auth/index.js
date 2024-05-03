@@ -6,8 +6,10 @@ import bell from "@hapi/bell"
 import jwtAuth from "hapi-auth-jwt2"
 import { routes } from '../routes.js';
 import dotenv from "dotenv";
+import { decode } from 'jsonwebtoken';
 
 dotenv.config();
+
 
 // aqui criamos uma logica para validar a entrada de dados nas rotas usar nas estratégias
 const teste = function (server, options) {
@@ -37,29 +39,33 @@ const start = async () => {
 
 
     // aqui criamos definitivamente um schema para ser usado 
-    server.auth.scheme("teste", teste)
+    // server.auth.scheme("teste", teste)
 
-    server.auth.strategy("custom", "teste", {
-        validate: (request, isValid) => {
-            // logica de codigo;
-            return { isValid }
-        }
-    })
+    // server.auth.strategy("custom", "teste", {
+    //     validate: (request, isValid) => {
+    //         // logica de codigo;
+    //         return { isValid }
+    //     }
+    // })
 
     // aqui criamos um a estrategia de autenticação para o JWT. lib -> hapi-auth-jwt2
     await server.register(jwtAuth);
 
     server.auth.strategy("jwt", "jwt", {
-        key: "ydbex62gb7dsbGDBD7g3edshsyd66gdyaysbddysgvy6666234djshs673$@dd#@!%@#$@usvbwdh",
+        key:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM2NDIzNzg0MjM0NTIzNDYyM3NkZnNkZjU0JEBAQCVANzEzMnYzMmQ1ZHNkamFzcnc3ZHNmc2R2ZmJzZGZ5ZHVmeXNkZmJ4eGMlKiZAJSFAI2pnc2pkZmdqc2Zyd2VyMjM0MjM0NjM0NjQ0NjQ2NDY0NDgzNHZkYmR1ZGk4MkBAQlZHRkRGZnNkZ2ZzZGZzNSJ9._ihTIY0QZ_KbPw7u1TuZOqgsdNe8SrshSDbyaY7P2dM",
         verifyOptions: {
             algorithms: ["HS256"] // padrão
         },
-        validate(decoded, h) {
-            return { isValid: true }
+        validate(decoded, request, h) {
+            console.log(decoded);
+            return { isValid: true };
+
         }
     })
 
-    // crinado auth para o google
+    // server.auth.default("jwt")
+
+    //crinado auth para o google
     await server.register(bell)
     server.auth.strategy("google", "bell", {
         provider: 'google',
@@ -69,6 +75,7 @@ const start = async () => {
         isSecure: false
     })
 
+    server.auth.default("google")
     server.route(routes);
 
     await server.start();
